@@ -1,48 +1,15 @@
 import random as rd
-from Classes import Classe
+import os
+import json
 
 def gerar_personagem():
-    atributos = {'classe': ['Feiticeiro', 'Mago', 'Artifice', 'Alquimista', 'Guerreiro', 'Paladino', 'Cavaleiro', 'Ladino', 'Arqueiro', 'Clérico',
-                            'Cultista'],
-                 'divindades': ['Origin', 'Lunaris', 'Bahamut', 'Umbra', 'Ignis', 'Orion', 'Trivion', 'Ephaestus', 'Myrai', 'Tiamat', 'Aboth', 'Aratrás'],
-                 'racas': ['Humano', 'Elfo', 'Anão', 'Kobolt' , 'Feline', 'Lupine', 'Gigante', 'Dragão', 'Kitsune', 'Anjo', 'Sucubos', 'Slime', 'Elemental'],
-                 'cores': ['Azul', 'Verde', 'Branco', 'Preto', 'Roxo', 'Violeta', 'Vermelho', 'Castanho', 'Cinza', 'Dourado'],
-                 'pele': ['Palida', 'Clara', 'Pardo', 'Escura', 'Negra'],
-                 'chifres': ['Sheep', 'Bode', 'Addax', 'Saiga', 'Deer'],
-                 'fisico': ['magro', 'esguio', 'musculoso', 'robusto'],
-                 'tip_cabelo': ['liso', 'cacheado', 'Ondulado', 'Crespo'],
-                 'cabelo': ['muito longo', 'longo', 'curto', 'muito curto'],
-                 'sobrenome': ['Gojo', 'Kisuke', 'Souza', 'Dragonheart', 'Moonlight', 'Torres', 'Draco', 'Madelin', 'Masamune', 'Urokitake',
-                               'Takahashi', 'Stormborn', 'Valentine', 'Ishiguro', 'Silverfang', 'Mistral',
-                                'Kurosawa', 'Ravenshadow', 'Targan', 'Fujimoto', 'Blackthorn', 'Solari',
-                                'Vermillion', 'Nightbloom', 'Aetherwind', 'Tanaka', 'Starcrest', 'Onyxblade',
-                                'Yamamoto', 'Duskwhisper', 'Lunaris', 'Graves', 'Shiranui', 'Valken'],
-                 'elementos': ['Ar', 'Agua', 'Fogo', 'Terra', 'Luz', 'Escuridão', 'Sagrado', 'Demoniaco', 'Gelo', 'Metal', 'Raio', 'Trovão', 'Som', 'Tempo',
-                               'Espaço', 'Veneno', 'Psique', 'Crystal', 'Alma', 'Não Elemental'],
-                 'seios': ['A', 'B', 'C', 'D', 'E', 'F'],
-                 'origem': {
-                     'Nobre': [1.1, 0.80], 
-                     'Aprendiz de Mago': 1.15, 
-                     'Orfão': [1.2, 0.85], 
-                     'Semideus': 1.3, 
-                     'Divindade': 1000},
-                 'corpo': ['Bestial', 'Humanoide', 'Antropomorfico'],
-                 'nomes_mas': ['Lucas', 'Satoru', 'Kaio', 'Toriko', 'Jimmy', 'Minosuke', 'Mauricio', 'Edward', 'Renji', 'Akira', 'Thorne', 
-                               'Dante', 'Hikaru', 'Rafael', 'Takeshi', 'Orion', 
-                               'Levi', 'Kazuo', 'Victor', 'Noah', 'Shiro', 'Ezra', 'Theo', 'Alaric', 
-                               'Kaito', 'Lucian', 'Jin', 'Elias', 'Rowan', 'Zane', 'Haruto', 'Magnus'],
-                 'nomes_fem': ['Luna', 'Satory', 'Ciel', 'Myra', 'Saphira', 'Karina', 'Mary', 'Lumi','Yuki', 'Artemis', 'Nina', 'Isadora', 'Freya', 
-                               'Hinata', 'Selene', 'Ayaka', 'Lilith', 'Naomi', 'Rin', 'Clara', 'Mika', 'Ayla', 'Talia', 'Zara','Evelyn', 'Sakura', 
-                               'Lyra', 'Amaya', 'Neriah', 'Kira', 'Elowen', 'Thalia'],
-                 'proef_fis': ['Espadas Longas', 'Laminas curvas', 'Arquearia', 'Armadura leve', 'Armadura pesada', 'Combate desarmado', 'Montaria', 'Acobracia',
-                               'Furtividade', 'Escudos', 'Lanças', 'Machados', 'Mosquete'],
-                 'proef_mag': ['Magia elemental', 'Magia Arcana', 'Magia de sangue', 'Evocação', 'Transmutação', 'Conjuração', 'Necromancia', 'Ilusão', 'Runas',
-                               'Alquimia', 'Invocação', 'Magia de cura'],
-                 'proef_div': ['Magia divina', 'Bênçãos', 'Exorcismo', 'Cura', 'Meditação', 'Rituais sagrados', 'Invocação celestial', 
-                               'Proteçãop espiritual', 'Purificação', 'Comunhão divina'],
-                 'proef_ger': ['Diplomacia', 'Etiqueta', 'Musica', 'Comércio', 'Engenharia', 'Forja', 'Culinaria', 'Sobrevivencia', 'Navegação',
-                               'Desenho', 'Escrita', 'Literatura', 'Costura']
-                 }
+
+    file_path = os.path.dirname(os.path.abspath(__file__))
+    json_path = os.path.join(file_path, "atributos.json")
+
+    with open(json_path, 'r') as a:
+        atributos = json.load(a)
+
     racas = atributos['racas'][:]
     elementos_disp= atributos['elementos'][:]
     while True:
@@ -141,7 +108,6 @@ def humano(personagem, atributos, ch1, elementos_disp):
         personagem['estatisticas']['sabedoria'] *= 1.2
 
     modificadores(personagem, atributos, ch1, elementos_disp)
-    #Classe(personagem['classe'], personagem, atributos, elementos_disp)
 
 def elfo(personagem, atributos, ch1, elementos_disp):
     personagem['especie'] = rd.choice(['Alto elfo', 'Elfo negro', 'Elfo da floresta', 'Elfo lunar'])
