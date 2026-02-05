@@ -131,11 +131,11 @@ class Personagem():
 		if not habilidade:
 			return f"Habilidade {nome} não encontrada"
 
-		if self.mana < habilidade.custo:
-			return f"Mana insuficiente para usar {habilidade.nome}"
+		if self.estamina < habilidade.custo:
+			return f"estamina insuficiente para usar {habilidade.nome}"
 
-		# Consome mana
-		self.mana -= habilidade.custo
+		# Consome estamina
+		self.estamina -= habilidade.custo
 
 		if habilidade.tipo == "ofensiva":
 			return self.atacar(mod=habilidade.dano)
@@ -144,12 +144,39 @@ class Personagem():
 			self.curar(habilidade.dano)
 			return f"{self.nome} recuperou {habilidade.dano * self.vida_max} de vida com {habilidade.nome}"
 
+	def usar_magia(self, nome):
+		magia = self.magias.get(nome)
+		if not magia:
+			return f"Magia {nome} não encontrada"
+
+		if self.mana < magia.custo:
+			return f"mana insuficiente para usar {magia.nome}"
+
+		# Consome mana
+		self.mana -= magia.custo
+
+		if magia.tipo == "ofensiva":
+			return self.atacar(mod=magia.dano)
+
+		elif magia.tipo == "cura":
+			self.curar(magia.dano)
+			return f"{self.nome} recuperou {magia.dano * self.vida_max} de vida com {magia.nome}"
+
 	def recuperar_mana(self):
 		regen = self.mana_max / 100 + ((self.arcano + self.inteligencia) / 100)
 		if self.mana < self.mana_max:
 			self.mana += regen
 		else:
 			self.mana = self.mana_max
+
+	def recuperar_estamina(self):
+		regen = self.estamina_max / 100 + ((self.resistencia + self.constituicao + self.agilidade) / 100)
+		
+		if self.estamina < self.estamina_max:
+			self.estamina += regen
+
+		else:
+			self.estamina = self.estamina_max
 
 	def __str__(self):
 		equipamentos = ", ".join( 
@@ -190,7 +217,6 @@ class Monstro():
 		self.inventario = None
 		self.habilidades = {}
 		self.magias = {}
-		self.inventario = None
 		self.posx = 0
 		self.posy = 0
 
@@ -219,6 +245,15 @@ class Monstro():
 		else:
 			self.mana = self.mana_max
 
+	def recuperar_estamina(self):
+		regen = self.estamina_max / 100 + ((self.resistencia + self.constituicao + self.agilidade) / 100)
+		
+		if self.estamina < self.estamina_max:
+			self.estamina += regen
+
+		else:
+			self.estamina = self.estamina_max
+
 	def mover(self, dir):
 		if dir == 'frente':
 			self.posy += 1
@@ -237,7 +272,7 @@ class Monstro():
 		if self.estamina < habilidade.custo:
 			return f"estamina insuficiente para usar {habilidade.nome}"
 
-		# Consome mana
+		# Consome estamina
 		self.estamina -= habilidade.custo
 
 		if habilidade.tipo == "ofensiva":
@@ -247,10 +282,27 @@ class Monstro():
 			self.curar(habilidade.dano)
 			return f"{self.nome} recuperou {habilidade.dano * self.vida_max} de vida com {habilidade.nome}"
 
+	def usar_magia(self, nome):
+		magia = self.magias.get(nome)
+		if not magia:
+			return f"Magia {nome} não encontrada"
+
+		if self.mana < magia.custo:
+			return f"mana insuficiente para usar {magia.nome}"
+
+		# Consome mana
+		self.mana -= magia.custo
+
+		if magia.tipo == "ofensiva":
+			return self.atacar(mod=magia.dano)
+
+		elif magia.tipo == "cura":
+			self.curar(magia.dano)
+			return f"{self.nome} recuperou {magia.dano * self.vida_max} de vida com {magia.nome}"
 
 	def __str__(self):
 		return (
-			f"Nome: {self.nome} | Classe: {self.classe} | Raça: {self.raca}"
+			f"Nome: {self.nome} | Raça: {self.raca}"
 			f"Vida: {self.vida} | Mana: {self.mana} | Estamina: {self.estamina}"
 			f"Ataque Fisico: {self.ataque_fis} | Ataque Magico: {self.ataque_m}"
 			f"Defesa Fisica: {self.defesa} | Defesa Magica: {self.defesa_m}" 
