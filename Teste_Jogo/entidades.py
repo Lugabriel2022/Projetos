@@ -113,7 +113,7 @@ class Personagem():
 			self.defesa_m -= armadura.protecao_mag
 			self.equipamento[slot] = 'nenhum'
 
-	def equipar_armadura(self, tipo):
+	def equipar_armadura(self, armadura):
 		slot = self.SLOTS_ARMADURA.get(armadura.tipo)
 		if slot:
 			if self.equipamento[slot] != 'nenhum':
@@ -159,5 +159,5 @@ class Personagem():
 			f"Vida: {self.vida} | Mana: {self.mana} | Estamina: {self.estamina}"
 			f"Ataque Fisico: {self.ataque_fis} | Ataque Magico: {self.ataque_m}"
 			f"Defesa Fisica: {self.defesa} | Defesa Magica: {self.defesa_m}"
-			f"Equipamento: {self.equipamento}" 
+			f"Equipamento: {equipamentos}" 
 		)
