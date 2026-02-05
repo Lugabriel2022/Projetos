@@ -7,9 +7,10 @@ class Personagem():
 		'botas': 'botas'
 		}
 
-	def __init__(self, nome, classe, forca, agilidade, resistencia, constituicao, carisma, inteligencia, sabedoria, arcano, fe, sorte):
+	def __init__(self, nome, classe, raca, forca, agilidade, resistencia, constituicao, carisma, inteligencia, sabedoria, arcano, fe, sorte):
 		self.nome = nome
 		self.nivel = 1
+		self.raca = raca
 		self.vida_max = constituicao * 10
 		self.vida = self.vida_max
 		self.mana_max = arcano * (inteligencia / 4)
@@ -160,4 +161,97 @@ class Personagem():
 			f"Ataque Fisico: {self.ataque_fis} | Ataque Magico: {self.ataque_m}"
 			f"Defesa Fisica: {self.defesa} | Defesa Magica: {self.defesa_m}"
 			f"Equipamento: {equipamentos}" 
+		)
+
+class Monstro():
+	def __init__(self, nome, tamanho, raca, forca, agilidade, resistencia, constituicao, carisma, inteligencia, sabedoria, arcano, fe, sorte):
+		size = {'minusculo': 0.8,'pequeno': 1.0, 'medio': 2.3, 'grande': 3.0, 'colossal': 3.5, 'gargantua': 4.0, 'cosmico': 10.0}
+		self.nome = nome
+		self.raca = raca
+		self.forca = forca * size[tamanho]
+		self.resistencia = resistencia * size[tamanho]
+		self.constituicao = constituicao
+		self.carisma = carisma * size[tamanho]
+		self.inteligencia = inteligencia * size[tamanho]
+		self.sabedoria = sabedoria * size[tamanho]
+		self.arcano = arcano * size[tamanho]
+		self.fe = fe
+		self.sorte = sorte
+		self.vida_max = constituicao * 10
+		self.vida = self.vida_max
+		self.mana_max = arcano * (inteligencia / 4)
+		self.mana = self.mana_max
+		self.estamina_max = 10 * resistencia
+		self.estamina = self.estamina_max
+		self.ataque_fis = 10 * forca
+		self.defesa = 10 * ((constituicao * 50 / 100) + (resistencia * 25 / 100))
+		self.ataque_m = 10 * (arcano + (inteligencia / 2))
+		self.defesa_m = 10 * (arcano * 1.2 + (inteligencia / 4))
+		self.inventario = None
+		self.habilidades = {}
+		self.magias = {}
+		self.inventario = None
+		self.posx = 0
+		self.posy = 0
+
+	def atacar(self, type= 'fis',mod=1.0):
+		if type == 'fis':
+			return self.ataque_fis * mod, type
+
+		elif type == 'mag':	
+			return self.ataque_m * mod, type
+
+	def tomar_dano(self, dano):
+		if dano[1] == 'fis':
+			dano_final = max(0, dano[0] - self.defesa)
+		elif dano[1] == 'mag':
+			dano_final = max(0, dano[0] - self.defesa_m)
+		self.vida = max(0, self.vida - dano_final)
+
+	def curar(self, pot):
+		cura = self.vida_max * pot
+		self.vida = min(self.vida_max, self.vida + cura)
+
+	def recuperar_mana(self):
+		regen = self.mana_max / 100 + ((self.arcano + self.inteligencia) / 100)
+		if self.mana < self.mana_max:
+			self.mana += regen
+		else:
+			self.mana = self.mana_max
+
+	def mover(self, dir):
+		if dir == 'frente':
+			self.posy += 1
+		elif dir == 'trás':
+			self.posy -= 1
+		elif dir == 'direita':
+			self.posx += 1
+		elif dir == 'esquerda':
+			self.posx -= 1
+		
+	def usar_habilidade(self, nome):
+		habilidade = self.habilidades.get(nome)
+		if not habilidade:
+			return f"Habilidade {nome} não encontrada"
+
+		if self.estamina < habilidade.custo:
+			return f"estamina insuficiente para usar {habilidade.nome}"
+
+		# Consome mana
+		self.estamina -= habilidade.custo
+
+		if habilidade.tipo == "ofensiva":
+			return self.atacar(mod=habilidade.dano)
+
+		elif habilidade.tipo == "cura":
+			self.curar(habilidade.dano)
+			return f"{self.nome} recuperou {habilidade.dano * self.vida_max} de vida com {habilidade.nome}"
+
+
+	def __str__(self):
+		return (
+			f"Nome: {self.nome} | Classe: {self.classe} | Raça: {self.raca}"
+			f"Vida: {self.vida} | Mana: {self.mana} | Estamina: {self.estamina}"
+			f"Ataque Fisico: {self.ataque_fis} | Ataque Magico: {self.ataque_m}"
+			f"Defesa Fisica: {self.defesa} | Defesa Magica: {self.defesa_m}" 
 		)
