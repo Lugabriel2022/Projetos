@@ -83,7 +83,6 @@ class Personagem():
 		}
 		self.equipamento[slots[slot]] = 'punho'
 		self.atualizar_ataque()
-		self.atualizar_ataque()
 
 	def atualizar_ataque(self):
 		self.ataque_fis = 10 * self.forca
@@ -123,8 +122,8 @@ class Personagem():
 				self.defesa -= antiga.protecao_fis
 
 			self.equipamento[slot] = armadura
-			self.defesa_m += antiga.protecao_mag
-			self.defesa += antiga.protecao_fis
+			self.defesa_m += armadura.protecao_mag
+			self.defesa += armadura.protecao_fis
 
 	def usar_habilidade(self, nome):
 		habilidade = self.habilidades.get(nome)
@@ -177,7 +176,7 @@ class Personagem():
 
 		else:
 			self.estamina = self.estamina_max
-
+	
 	def __str__(self):
 		equipamentos = ", ".join( 
             f"{slot}: {str(item) if item else 'Nenhum'}" 
