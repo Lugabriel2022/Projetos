@@ -6,7 +6,11 @@ import json
 
 file_path = os.path.dirname(os.path.abspath(__file__))
 config_path = os.path.join(file_path, "config.env")
+json_path = os.path.join(file_path, "modelos.json")
 load_dotenv(config_path)
+
+with open(json_path, 'r') as j:
+    list_models = json.load(j)
 
 def limpar_chat():
     st.session_state["lista_mensagens"] = []
@@ -24,11 +28,11 @@ st.write("# Chatbot com IA")
 
 if not "lista_mensagens" in st.session_state:
     st.session_state["lista_mensagens"] = []
-
+#["nenhum" ,"Deep Seek", "Mistral Small", "Llama 3.1"]
 with st.sidebar:
     st.write("Configurações")
-    caixa_de_selecao = st.selectbox("escolha o modelo de ia", ["nenhum" ,"Deep Seek", "Mimo-v2"])
-    modelos = {"Deep Seek": "tngtech/deepseek-r1t2-chimera:free", "Mimo-v2" : "xiaomi/mimo-v2-flash"}
+    caixa_de_selecao = st.selectbox("escolha o modelo de ia", list_models.keys())
+
     if caixa_de_selecao != "nenhum":
         contexto, usar_contexto = context_system()
         if usar_contexto and contexto.strip() and "contexto_adicionado" not in st.session_state: 
@@ -50,7 +54,7 @@ if caixa_de_selecao != "nenhum":
         st.chat_message("user").write(mensagem_usuario)
         mensagem_user = {"role": "user", "content": mensagem_usuario}
         st.session_state["lista_mensagens"].append(mensagem_user)
-
+    try:
         resposta_ia = rq.post(
             "https://openrouter.ai/api/v1/chat/completions",
             headers={ 
@@ -58,15 +62,19 @@ if caixa_de_selecao != "nenhum":
                 "Content-Type": "application/json" 
             },
             json={
-                "model": modelos[caixa_de_selecao],
+                "model": list_models[caixa_de_selecao],
                 "messages": st.session_state["lista_mensagens"]
-            }
-        ).json()
-        texto_resposta_ia = resposta_ia["choices"][0]["message"]["content"]
+                }
+            ).json()
         print(resposta_ia)
+        texto_resposta_ia = resposta_ia["choices"][0]["message"]["content"]
+           
         st.chat_message("assistant").write(texto_resposta_ia)
         mensagem_ia = {"role": "assistant", "content": texto_resposta_ia}
         st.session_state["lista_mensagens"].append(mensagem_ia)
 
         if len(st.session_state["lista_mensagens"]) > 20:  # Mantém as últimas 20 interações
             st.session_state["lista_mensagens"] = st.session_state["lista_mensagens"][-20:]
+
+    except Exception as e:
+        print(f"Ocorreu um erro: {e}")

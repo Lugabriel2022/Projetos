@@ -1,0 +1,8 @@
+{
+    "nenhum": "nenhum",
+    "Deep Seek": "tngtech/deepseek-r1t2-chimera:free", 
+    "Mistral Small" : "mistralai/mistral-small-3.1-24b-instruct:free", 
+    "Llama 3.1": "meta-llama/llama-3.1-405b-instruct:free",
+    "GPT": "openai/gpt-oss-120b:free",
+    "Gemma 3": "google/gemma-3-27b-it:free"
+}
