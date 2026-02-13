@@ -5,6 +5,22 @@ Ele foi desenvolvido para estudo e prática de integração de APIs, interface g
 
 ---
 
+## ⚠️ Aviso Importante
+
+Este chatbot utiliza **modelos gratuitos** disponibilizados pelo OpenRouter.  
+Por isso, em alguns momentos:
+
+- As respostas podem ser **mais lentas** do que o esperado.  
+- Alguns modelos podem estar **temporariamente indisponíveis**.  
+
+Na prática, os modelos que costumam funcionar com maior frequência são:  
+- **DeepSeek**  
+- **Step 3.5 Flash**
+
+> Se notar demora ou falha em outros modelos, recomendamos selecionar um desses para melhor experiência.
+
+---
+
 ## 🛠️ Requisitos
 
 - Python 3.10+  
