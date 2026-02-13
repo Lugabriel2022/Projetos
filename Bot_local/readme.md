@@ -1,6 +1,33 @@
-# Chatbot Local
+# 🤖 Chatbot Local com CustomTkinter
 
-Um chatbot simples em Python com interface em **CustomTkinter**, utilizando modelos da [OpenRouter](https://openrouter.ai).
+Este projeto é um **chatbot em Python** com interface gráfica feita em **CustomTkinter**, integrado à [OpenRouter](https://openrouter.ai).  
+Ele foi desenvolvido para estudo e prática de integração de APIs, interface gráfica e boas práticas de organização de código.
+
+---
+
+## 🛠️ Requisitos
+
+- Python 3.10+  
+- Bibliotecas necessárias:
+  - `customtkinter`
+  - `requests`
+  - `python-dotenv`
+
+### Instalando bibliotecas
+```bash
+pip install customtkinter requests python-dotenv
+
+---
+
+## 📂 Estrutura do projeto
+
+Bot_local/
+│
+├── Interface.py      # Interface gráfica (CustomTkinter)
+├── Funcs.py          # Funções auxiliares (requisições, cache, etc.)
+├── config.env        # Configuração da API Key
+├── modelos.json      # Lista de modelos disponíveis
+└── assets/           # Ícones e recursos visuais
 
 ---
 
@@ -12,11 +39,10 @@ Um chatbot simples em Python com interface em **CustomTkinter**, utilizando mode
 2. **Obtenha sua API Key**  
    - Após o login, clique em **Get API Key**.  
    - Isso abrirá a página de **Keys** da sua conta.  
-   - Clique em **Create** e preencha apenas o nome (opcional).  
-   - Confirme em **Create** para gerar a chave.
+   - Clique em **Create**, dê um nome (opcional) e confirme.  
+   - Copie a chave gerada.
 
 3. **Configure o arquivo `config.env`**  
-   - Copie a chave gerada.  
    - Abra o arquivo `config.env`.  
    - Substitua o texto `"Insira a chave de api aqui"` pela sua chave.  
    - **Importante:** mantenha as aspas.
