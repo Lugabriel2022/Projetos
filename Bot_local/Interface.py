@@ -5,6 +5,7 @@ import os
 import json
 
 os.system('clear')
+ctk.set_appearance_mode("dark")  # força tema escuro
 
 class Bot_app(Funcs):
     """
@@ -59,14 +60,17 @@ class Bot_app(Funcs):
         """Cria a área de texto para exibir o histórico de mensagens do chat."""
         self.txt_chat = ctk.CTkTextbox(self.tela_chat, state="disabled")
         self.txt_chat.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.98)
+        self.txt_chat.tag_config("user", foreground="lightblue") 
+        self.txt_chat.tag_config("bot", foreground="cyan") 
+        self.txt_chat.tag_config("system", foreground="gray")
 
     def widgets_tela_configs(self):
         """Cria os widgets da tela de configurações (contexto, modelos, limpar)."""
         self.lb_contest = ctk.CTkLabel(self.tela_configs, text='Contexto (opcional)', anchor="center")
         self.txt_contest = ctk.CTkTextbox(self.tela_configs)
-        self.bt_contest = ctk.CTkButton(self.tela_configs, text='Usar contexto', command=self.context_system)
-        self.cb_modelo = ctk.CTkComboBox(self.tela_configs, values=self.list_models)
-        self.bt_limpar = ctk.CTkButton(self.tela_configs, text='Limpar', command=self.limpar)
+        self.bt_contest = ctk.CTkButton(self.tela_configs, text='Usar contexto', hover_color= "green", fg_color= "#87CEFA", text_color= "black", command=self.context_system)
+        self.cb_modelo = ctk.CTkComboBox(self.tela_configs, values=self.list_models, command= self.desbloquear_envio)
+        self.bt_limpar = ctk.CTkButton(self.tela_configs, text='Limpar', hover_color= "green", fg_color= "#87CEFA", text_color= "black", command=self.limpar)
 
         # posicionamento dos widgets
         self.lb_contest.place(relx=0.25, rely=0.01)
@@ -78,7 +82,7 @@ class Bot_app(Funcs):
     def widgets_tela_entrada(self):
         """Cria a área de entrada de mensagem e botão de envio."""
         self.txt_mensagem = ctk.CTkTextbox(self.tela_entrada)
-        self.bt_enviar = ctk.CTkButton(self.tela_entrada, text='Enviar', command=self.mensagem_usuario)
+        self.bt_enviar = ctk.CTkButton(self.tela_entrada, text='Enviar',state= "disabled", hover_color= "green", fg_color= "#87CEFA", text_color= "black", command=self.mensagem_usuario)
 
         # posicionamento
         self.txt_mensagem.place(relx=0.02, rely=0.25, relwidth=0.76, relheight=0.25)
