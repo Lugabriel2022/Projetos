@@ -66,11 +66,11 @@ class Personagem():
 
 	def equipar_arma(self, arma, slot):
 		slots = {
-			'dominant': 'mão dir',
+			'destra': 'mão dir',
 			'canhota' : 'mão esq'
 		}
 		match slot:
-			case 'dominant':
+			case 'destra':
 				self.equipamento[slots[slot]] = arma
 			case 'canhota':
 				self.equipamento[slots[slot]] = arma
@@ -182,10 +182,10 @@ class Personagem():
             f"{slot}: {str(item) if item else 'Nenhum'}" 
         for slot, item in self.equipamento.items() )
 		return (
-			f"Nome: {self.nome} | Classe: {self.classe} | Nivel: {self.nivel}"
-			f"Vida: {self.vida} | Mana: {self.mana} | Estamina: {self.estamina}"
-			f"Ataque Fisico: {self.ataque_fis} | Ataque Magico: {self.ataque_m}"
-			f"Defesa Fisica: {self.defesa} | Defesa Magica: {self.defesa_m}"
+			f"Nome: {self.nome} | Classe: {self.classe} | Nivel: {self.nivel}\n"
+			f"Vida: {self.vida} | Mana: {self.mana} | Estamina: {self.estamina}\n"
+			f"Ataque Fisico: {self.ataque_fis} | Ataque Magico: {self.ataque_m}\n"
+			f"Defesa Fisica: {self.defesa} | Defesa Magica: {self.defesa_m}\n"
 			f"Equipamento: {equipamentos}" 
 		)
 
@@ -301,8 +301,8 @@ class Monstro():
 
 	def __str__(self):
 		return (
-			f"Nome: {self.nome} | Raça: {self.raca}"
-			f"Vida: {self.vida} | Mana: {self.mana} | Estamina: {self.estamina}"
-			f"Ataque Fisico: {self.ataque_fis} | Ataque Magico: {self.ataque_m}"
+			f"Nome: {self.nome} | Raça: {self.raca}\n"
+			f"Vida: {self.vida} | Mana: {self.mana} | Estamina: {self.estamina}\n"
+			f"Ataque Fisico: {self.ataque_fis} | Ataque Magico: {self.ataque_m}\n"
 			f"Defesa Fisica: {self.defesa} | Defesa Magica: {self.defesa_m}" 
 		)
