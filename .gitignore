@@ -1,3 +1,11 @@
 token
-notas
+notas.txt
 Chat ai/config.env
+Chat ai/hist.txt
+Senai
+Bot_local/__pycache__/funcs.cpython-313.pyc
+Teste_Jogo/__pycache__/entidades.cpython-313.pyc
+Teste_Jogo/__pycache__/hub.cpython-313.pyc
+Teste_Jogo/__pycache__/items.cpython-313.pyc
+Teste_Jogo/__pycache__/mapa.cpython-313.pyc
+Teste_Jogo/__pycache__/mecanicas.cpython-313.pyc
