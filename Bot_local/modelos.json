@@ -1,0 +1,9 @@
+{
+    "nenhum": "nenhum",
+    "Deep Seek": "tngtech/deepseek-r1t2-chimera:free", 
+    "Mistral Small" : "mistralai/mistral-small-3.1-24b-instruct:free", 
+    "Llama 3.1": "meta-llama/llama-3.1-405b-instruct:free",
+    "Step 3.5 Flash": "stepfun/step-3.5-flash:free",
+    "Llama 3.3": "meta-llama/llama-3.3-70b-instruct:free",
+    "Venice": "cognitivecomputations/dolphin-mistral-24b-venice-edition:free"
+}
