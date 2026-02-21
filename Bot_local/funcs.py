@@ -21,9 +21,11 @@ class Funcs:
     def desbloquear_envio(self, choice):
         """mantem o botão enviar bloqueado enquanto um modelo não for selecionado"""
         if choice != 'nenhum': # se o usuário escolheu algum modelo 
-            self.bt_enviar.configure(state="normal") 
+            self.bt_enviar.configure(state="normal")
+            self.bt_contest.configure(state= "normal") 
         else: 
             self.bt_enviar.configure(state="disabled")
+            self.bt_contest.configure(state= "disabled") 
 
     def limpar(self):
         """Limpa o histórico do chat e reseta o estado dos widgets."""
@@ -31,6 +33,7 @@ class Funcs:
         self.txt_chat.delete('1.0', 'end')
         self.txt_chat.configure(state='disabled')
         self.bt_enviar.configure(state='normal')
+        self.bt_contest.configure(state= "normal") 
         self.cache_chat = []
 
     def mensagem_usuario(self):
@@ -46,6 +49,7 @@ class Funcs:
         # desabilita entrada até resposta da IA
         self.txt_chat.configure(state='disabled')
         self.bt_enviar.configure(state='disabled')
+        self.bt_contest.configure(state= "disabled") 
         self.txt_mensagem.delete('1.0', 'end')
 
         # agenda chamada da IA (after evita travar interface)
@@ -98,6 +102,7 @@ class Funcs:
                     self.cache_chat.append({"role": "assistant", "content": conteudo})
                     self.txt_chat.configure(state="disabled")
                     self.bt_enviar.configure(state="normal")
+                    self.bt_contest.configure(state= "normal") 
                 else:
                     if tentativas < max_tentativas:
                         self.txt_chat.configure(state="normal")
@@ -109,12 +114,14 @@ class Funcs:
                         self.txt_chat.insert("end", "Erro: resposta não recebida dentro do tempo limite\n\n")
                         self.txt_chat.configure(state="disabled")
                         self.bt_enviar.configure(state="normal")
+                        self.bt_contest.configure(state= "normal") 
 
             except Exception as e:
                 self.txt_chat.configure(state="normal")
                 self.txt_chat.insert("end", f"Erro na resposta da IA: {e}\n\n")
                 self.txt_chat.configure(state="disabled")
                 self.bt_enviar.configure(state="normal")
+                self.bt_contest.configure(state= "normal") 
 
             if len(self.cache_chat) >= 30:
                 self.cache_chat = self.cache_chat[-30:]

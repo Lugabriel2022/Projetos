@@ -68,7 +68,7 @@ class Bot_app(Funcs):
         """Cria os widgets da tela de configurações (contexto, modelos, limpar)."""
         self.lb_contest = ctk.CTkLabel(self.tela_configs, text='Contexto (opcional)', anchor="center")
         self.txt_contest = ctk.CTkTextbox(self.tela_configs)
-        self.bt_contest = ctk.CTkButton(self.tela_configs, text='Usar contexto', hover_color= "green", fg_color= "#87CEFA", text_color= "black", command=self.context_system)
+        self.bt_contest = ctk.CTkButton(self.tela_configs, text='Usar contexto', state= "disabled", hover_color= "green", fg_color= "#87CEFA", text_color= "black", command=self.context_system)
         self.cb_modelo = ctk.CTkComboBox(self.tela_configs, values=self.list_models, command= self.desbloquear_envio)
         self.bt_limpar = ctk.CTkButton(self.tela_configs, text='Limpar', hover_color= "green", fg_color= "#87CEFA", text_color= "black", command=self.limpar)
 
@@ -83,6 +83,7 @@ class Bot_app(Funcs):
         """Cria a área de entrada de mensagem e botão de envio."""
         self.txt_mensagem = ctk.CTkTextbox(self.tela_entrada)
         self.bt_enviar = ctk.CTkButton(self.tela_entrada, text='Enviar',state= "disabled", hover_color= "green", fg_color= "#87CEFA", text_color= "black", command=self.mensagem_usuario)
+        self.bt_enviar.bind("<Return>", self.mensagem_usuario)
 
         # posicionamento
         self.txt_mensagem.place(relx=0.02, rely=0.25, relwidth=0.76, relheight=0.25)
