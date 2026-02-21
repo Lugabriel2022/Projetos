@@ -1,4 +1,6 @@
-from entidades import Personagem, Monstro
-from items import Arma, Armadura
+from entidades import Personagem
+from items import ArmaObjeto, ArmaduraObjeto, ConsumivelObjeto, FireweaponObjeto
 from mapa import Sala, Tile
-from mecanicas import atacar_fis
+# from mecanicas import 
+from poderes import Feitiço, Habilidade
+from sistemas import InventoryModule, EquipModule, HealthModule, StaminaModule, ManaModule, RacaModule
